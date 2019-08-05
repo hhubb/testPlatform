@@ -1,0 +1,79 @@
+body{
+    overflow-x: hidden;
+}
+
+.el-input__inner{
+
+    height: 30px!important;
+    width: 300px!important;
+}
+
+#form .el-input__inner{
+
+    height: 30px!important;
+    width: 200px!important;
+}
+#form .el-input {
+    width: 200px!important;
+}
+.index_li{ float:left; list-style:none;padding-left: 20px}
+
+.icodelogo{
+    width: 80px;
+    margin-top: -15px;
+}
+.color_bbs{
+    color: #ff4d51!important;
+}
+.color_music{
+    color: hotpink!important;
+}
+.color_article{
+
+    color: #a4da89!important;
+}
+.el-carousel__item h3 {
+    color: #475669;
+    font-size: 14px;
+    opacity: 0.75;
+    line-height: 200px;
+    margin: 0;
+}
+
+.el-carousel__item:nth-child(2n) {
+    background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n+1) {
+    background-color: #d3dce6;
+}
+
+.bannerImg{
+    width: 100%;
+    height: inherit;
+    min-height: 360px;
+    min-width: 1400px;
+}
+.swp_div{
+    width: 100%;
+    position: absolute;
+    margin-left: -5px;
+    margin-top: 50px;
+
+}
+.index_content{
+    position: absolute;
+    margin-top: 450px;
+}
+.peopleImg{
+    height: 100px;
+    display: table-caption;
+    /* overflow: hidden; */
+    float: left;
+    margin-left: 10px;
+}
+#login .el-input__inner{
+
+    height: 30px!important;
+    width: 200px!important;
+}

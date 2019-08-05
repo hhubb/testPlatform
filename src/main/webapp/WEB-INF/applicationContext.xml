@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:jaxws="http://cxf.apache.org/jaxws"
+	   xsi:schemaLocation="
+     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd  
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+     http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd  
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+     http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+
+	<!-- 应用资源 -->
+	<!-- 	<import resource="classpath:dubbo-admin.xml"/> -->
+
+
+
+	<!-- 配置组件扫描器，使用注解方式开发,不用配置dao和service -->
+	<!-- 在springmvc.xml文件中也可以配置这个属性 -->
+	<context:component-scan base-package="com.icode.testplatform"/>
+
+	<!-- 数据源 -->
+	<bean id="dataSource"
+		  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/mysql" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+	</bean>
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+
+	</bean>
+
+	<!--&lt;!&ndash; 拦截器方式配置事物 &ndash;&gt;-->
+	<!--<tx:advice id="transactionAdvice" transaction-manager="transactionManager">-->
+		<!--<tx:attributes>-->
+			<!--<tx:method name="add*" propagation="REQUIRED" />-->
+			<!--<tx:method name="insert*" propagation="REQUIRED" />-->
+			<!--<tx:method name="create*" propagation="REQUIRED" />-->
+			<!--<tx:method name="save*" propagation="REQUIRED" />-->
+			<!--<tx:method name="update*" propagation="REQUIRED" />-->
+			<!--<tx:method name="delete*" propagation="REQUIRED" />-->
+			<!--<tx:method name="remove*" propagation="REQUIRED" />-->
+			<!--<tx:method name="get*"  read-only="true" />-->
+			<!--<tx:method name="del*" propagation="REQUIRED"/>-->
+			<!--<tx:method name="apply*" propagation="REQUIRED"/>-->
+		<!--</tx:attributes>-->
+	<!--</tx:advice>-->
+
+
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath:mapper/*.xml" />
+		<property name="typeAliasesPackage" value="com.icode.testplatform" />
+		<!--<property name="configLocation" value="/WEB-INF/mybatis-config.xml"/>-->
+	</bean>
+
+	<!--<bean id="mapper" class="com.icode.testplatformtplatform.mapperper.CommonDaoImpImp">-->
+		<!--<property name="sqlSessionFactory" ref="sqlSessionFactory" />-->
+	<!--</bean>-->
+	<!-- Mapper方式 -->
+	<bean id="mapper" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.icode.testplatform.mapper" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+
+	</bean>
+
+
+
+
+	<!-- ================================事务相关控制=================================================    -->
+	<!-- 开启注解配置 -->
+	<!--<context:annotation-config />-->
+
+	<!-- 扫描service层 -->
+	<!--     <context:component-scan base-package="com.zork.opbd.controller.*" />   -->
+
+	<!-- 开启事务注解驱动 -->
+	<!--<tx:annotation-driven />-->
+
+</beans>

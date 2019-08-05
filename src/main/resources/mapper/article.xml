@@ -1,0 +1,44 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.icode.testplatform.mapper.ArticleMapper">
+
+	<select id="getArticleListByMainid" resultType="com.icode.testplatform.dto.ArticleDTO">
+		select bu.username as sender,ba.* from bbs_article ba
+		left join bbs_user bu on ba.userid=bu.id
+		where mainid=#{mainid};
+	</select>
+	<insert id="insert" parameterType="com.icode.testplatform.entity.Article">
+		insert into bbs_article (
+		mainid,
+		<if test="article.content!=''">
+			content,
+		</if>
+
+		create_time,
+		<if test="article.title!=''">
+			title,
+		</if>
+		userid
+		)
+		values (
+		#{article.mainid},
+		<if test="article.content!=''">
+			#{article.content},
+		</if>
+		<if test="article.create_time!=''">
+			#{article.create_time},
+		</if>
+		<if test="article.title!=''">
+			#{article.title},
+		</if>
+		#{article.userid}
+		)
+	</insert>
+
+	<delete id="deleteById" >
+		delete from bbs_article where id=#{id} or mainid=#{id}
+	</delete>
+
+</mapper>
